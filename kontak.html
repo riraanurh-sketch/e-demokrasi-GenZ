@@ -19,36 +19,51 @@
         }
         .container {
             width: 85%;
-            margin: auto;
-            padding: 20px;
-            background: white;
-            margin-top: 20px;
-            border-radius: 10px;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 10px;
         }
         h2 {
             color: #005bbb;
+            margin-bottom: 10px;
+        }
+        .info-box {
+            background: #e6f1ff;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 20px;
+            box-sizing: border-box;
+        }
+        input, textarea, button {
+            width: 100%;
+            box-sizing: border-box; /* penting agar padding tidak membuat box melebar */
+            font-size: 14px;
         }
         input, textarea {
-            width: 100%;
-            padding: 10px;
+            padding: 12px;
             margin-top: 10px;
             border-radius: 6px;
-            border: 1px solid #ccc;
+            border: 2px solid #ccc;
+            resize: vertical;
         }
         button {
-            padding: 10px 15px;
+            padding: 12px;
             background: #007bff;
             color: white;
             border: none;
             border-radius: 6px;
             cursor: pointer;
-            margin-top: 10px;
+            margin-top: 15px;
+            font-size: 16px;
+            transition: background 0.3s;
         }
-        .info-box {
-            background: #e6f1ff;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 20px;
+        button:hover {
+            background: #0056b3;
+        }
+        #successMsg {
+            margin-top: 10px;
+            color: green;
+            display: none;
         }
         footer {
             background: #222;
@@ -71,19 +86,17 @@
     <div class="info-box">
         <form id="contactForm">
             <label>Nama Anda:</label>
-            <input type="text" id="nama" required>
+            <input type="text" id="nama" placeholder="Masukkan nama Anda" required>
 
             <label>Email:</label>
-            <input type="email" id="email" required>
+            <input type="email" id="email" placeholder="Masukkan email Anda" required>
 
             <label>Pesan:</label>
-            <textarea id="pesan" rows="5" required></textarea>
+            <textarea id="pesan" rows="5" placeholder="Tulis pesan Anda" required></textarea>
 
             <button type="submit">Kirim Pesan</button>
         </form>
-        <div id="successMsg" style="margin-top:10px; color: green; display:none;">
-            Pesan berhasil dikirim! Terima kasih.
-        </div>
+        <div id="successMsg">Pesan berhasil dikirim! Terima kasih.</div>
     </div>
 
     <h2>Info Kontak</h2>
