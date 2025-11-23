@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontak Kami - Edukasi E-Demokrasi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f4f4;
+        }
+        header {
+            background: #005bbb;
+            padding: 15px;
+            color: white;
+            text-align: center;
+        }
+        .container {
+            width: 85%;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+        h2 {
+            color: #005bbb;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+        button {
+            padding: 10px 15px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .info-box {
+            background: #e6f1ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        footer {
+            background: #222;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Kontak Kami</h1>
+</header>
+
+<div class="container">
+
+    <h2>Form Kontak</h2>
+    <div class="info-box">
+        <form id="contactForm">
+            <label>Nama Anda:</label>
+            <input type="text" id="nama" required>
+
+            <label>Email:</label>
+            <input type="email" id="email" required>
+
+            <label>Pesan:</label>
+            <textarea id="pesan" rows="5" required></textarea>
+
+            <button type="submit">Kirim Pesan</button>
+        </form>
+        <div id="successMsg" style="margin-top:10px; color: green; display:none;">
+            Pesan berhasil dikirim! Terima kasih.
+        </div>
+    </div>
+
+    <h2>Info Kontak</h2>
+    <div class="info-box">
+        <p>Email: <b>info@edudemokrasi.com</b></p>
+        <p>Instagram: <b>@e_demokrasi.genZ</b></p>
+        <p>Telepon: <b>+62 812 3456 7890</b></p>
+        <p>Alamat: <b>Jl. Sawahan, Sumatera Barat, Indonesia</b></p>
+    </div>
+
+</div>
+
+<footer>
+    &copy; 2025 Edukasi E-Demokrasi untuk Gen Z
+</footer>
+
+<script>
+    const form = document.getElementById("contactForm");
+    const successMsg = document.getElementById("successMsg");
+
+    form.addEventListener("submit", function(e){
+        e.preventDefault(); // mencegah reload halaman
+
+        // Ambil nilai
+        const nama = document.getElementById("nama").value;
+        const email = document.getElementById("email").value;
+        const pesan = document.getElementById("pesan").value;
+
+        // Simpan sementara ke localStorage (opsional)
+        let messages = JSON.parse(localStorage.getItem("messages")) || [];
+        messages.push({nama, email, pesan, waktu: new Date().toLocaleString("id-ID")});
+        localStorage.setItem("messages", JSON.stringify(messages));
+
+        // Reset form
+        form.reset();
+
+        // Tampilkan pesan sukses
+        successMsg.style.display = "block";
+
+        // Hilangkan pesan setelah 3 detik
+        setTimeout(() => {
+            successMsg.style.display = "none";
+        }, 3000);
+    });
+</script>
+
+</body>
+</html>

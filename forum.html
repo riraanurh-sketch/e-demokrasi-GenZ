@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Forum Diskusi Mini</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #007bff;
+        }
+
+        .form-box {
+            background: #eaf3ff;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 8px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 10px 15px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .komentar-box {
+            margin-top: 20px;
+            background: #ffffff;
+            padding: 15px;
+            border-left: 5px solid #007bff;
+            border-radius: 5px;
+        }
+
+        .nama {
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .waktu {
+            font-size: 12px;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h2>Forum Diskusi Mini</h2>
+
+    <div class="form-box">
+        <label>Nama Anda:</label>
+        <input type="text" id="nama">
+
+        <label>Pesan / Diskusi:</label>
+        <textarea id="pesan" rows="4"></textarea>
+
+        <button onclick="kirimKomentar()">Kirim</button>
+    </div>
+
+    <h3>Komentar :</h3>
+
+    <div id="listKomentar"></div>
+
+</div>
+
+<script>
+    // Load komentar saat halaman dibuka
+    document.addEventListener("DOMContentLoaded", tampilkanKomentar);
+
+    function kirimKomentar() {
+        let nama = document.getElementById("nama").value.trim();
+        let pesan = document.getElementById("pesan").value.trim();
+
+        if (nama === "" || pesan === "") {
+            alert("Nama dan pesan tidak boleh kosong!");
+            return;
+        }
+
+        let waktu = new Date().toLocaleString("id-ID");
+
+        let komentarBaru = {
+            nama: nama,
+            pesan: pesan,
+            waktu: waktu
+        };
+
+        // Ambil data lama
+        let data = JSON.parse(localStorage.getItem("forum")) || [];
+
+        // Tambah ke atas
+        data.unshift(komentarBaru);
+
+        // Simpan
+        localStorage.setItem("forum", JSON.stringify(data));
+
+        tampilkanKomentar();
+
+        // Reset form
+        document.getElementById("nama").value = "";
+        document.getElementById("pesan").value = "";
+    }
+
+    function tampilkanKomentar() {
+        let data = JSON.parse(localStorage.getItem("forum")) || [];
+
+        let html = "";
+
+        data.forEach(item => {
+            html += `
+                <div class="komentar-box">
+                    <div class="nama">${item.nama}</div>
+                    <div class="waktu">${item.waktu}</div>
+                    <p>${item.pesan}</p>
+                </div>
+            `;
+        });
+
+        document.getElementById("listKomentar").innerHTML = html;
+    }
+</script>
+
+</body>
+</html>

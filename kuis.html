@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kuis E-Demokrasi</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f4f4;
+        padding: 20px;
+    }
+    .container {
+        max-width: 800px;
+        margin: auto;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+    }
+    h1 {
+        text-align: center;
+        color: #005bbb;
+    }
+    .question-box {
+        margin-bottom: 20px;
+        padding: 15px;
+        background: #eaf3ff;
+        border-radius: 8px;
+        transition: transform 0.3s;
+    }
+    .question-box:hover {
+        transform: scale(1.02);
+    }
+    .question {
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+    .options button {
+        display: block;
+        width: 100%;
+        text-align: left;
+        padding: 10px;
+        margin-bottom: 8px;
+        border-radius: 6px;
+        border: 1px solid #007bff;
+        background: white;
+        cursor: pointer;
+        transition: background 0.3s, color 0.3s;
+    }
+    .options button:hover {
+        background: #007bff;
+        color: white;
+    }
+    #submit-btn {
+        background: #005bbb;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 16px;
+        width: 100%;
+        margin-top: 10px;
+    }
+    #result {
+        margin-top: 20px;
+        padding: 15px;
+        background: #d4edda;
+        border-left: 5px solid #28a745;
+        border-radius: 6px;
+        display: none;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Kuis Interaktif E-Demokrasi</h1>
+
+    <div id="quiz"></div>
+
+    <button id="submit-btn" onclick="submitQuiz()">Lihat Hasil</button>
+
+    <div id="result"></div>
+</div>
+
+<script>
+// Data kuis 20 pertanyaan
+const quizData = [
+{q:"1. Apa yang dimaksud dengan e-demokrasi?", a:["Proses demokrasi berbasis digital","Permainan politik","Media sosial untuk hiburan","Belajar coding"], correct:0},
+{q:"2. Mengapa generasi muda perlu peduli e-demokrasi?", a:["Agar bisa mengakses konten hiburan","Untuk ikut aktif dalam pengambilan keputusan digital","Hanya untuk main game","Tidak ada hubungannya dengan mereka"], correct:1},
+{q:"3. Apa yang termasuk hak digital?", a:["Privasi dan keamanan data pribadi","Mengunduh film bajakan","Membuat akun media sosial palsu","Bermain game online"], correct:0},
+{q:"4. Apa perilaku yang tidak etis di media sosial?", a:["Menghormati pendapat orang lain","Menyebarkan hoaks","Memeriksa fakta sebelum posting","Memberikan opini sopan"], correct:1},
+{q:"5. Contoh partisipasi digital yang positif adalah?", a:["Mengikuti diskusi online untuk berbagi opini","Membuat akun palsu untuk menyerang orang","Menyebarkan berita palsu","Spam komentar di forum"], correct:0},
+{q:"6. Apa fungsi forum diskusi online?", a:["Tempat berdiskusi dan bertukar pendapat","Tempat menyebarkan hoaks","Media untuk bullying","Hanya hiburan semata"], correct:0},
+{q:"7. Apa yang bukan termasuk tantangan e-demokrasi?", a:["Hoaks","Cyberbullying","Partisipasi masyarakat","Echo chamber"], correct:2},
+{q:"8. Bagaimana sebaiknya media sosial digunakan?", a:["Dengan etika dan tanggung jawab","Tanpa berpikir","Untuk menyebarkan kebencian","Mengikuti tren saja"], correct:0},
+{q:"9. Apa yang dimaksud literasi digital?", a:["Kemampuan memahami dan menggunakan teknologi dengan bijak","Membaca buku fisik","Menonton film online","Bermain game"], correct:0},
+{q:"10. Tujuan utama e-demokrasi adalah?", a:["Meningkatkan partisipasi masyarakat dalam proses demokrasi","Mengadakan konser digital","Bermain game online","Belajar coding"], correct:0},
+{q:"11. Platform aspirasi digital digunakan untuk?", a:["Menyampaikan pendapat masyarakat secara transparan","Mengunggah video lucu","Belanja online","Membuat meme"], correct:0},
+{q:"12. Risiko utama dalam ruang digital adalah?", a:["Hoaks dan ujaran kebencian","Belajar di sekolah","Olahraga pagi","Membaca buku"], correct:0},
+{q:"13. Cara melindungi hak digital adalah?", a:["Tidak membagikan data pribadi sembarangan","Mengunggah data pribadi tanpa filter","Menyebarkan password orang lain","Mengabaikan keamanan akun"], correct:0},
+{q:"14. Apa itu echo chamber?", a:["Terjebak dalam satu sudut pandang dan tidak menerima opini lain","Ruang tidur","Kamar tamu","Game online"], correct:0},
+{q:"15. Contoh partisipasi digital yang baik adalah?", a:["Membagikan informasi yang benar","Menyebarkan hoaks","Menghina orang lain","Spam komentar"], correct:0},
+{q:"16. Bagaimana cara beretika online?", a:["Berpikir sebelum posting dan menghormati pendapat orang lain","Menghina orang","Spam","Mengambil data orang lain"], correct:0},
+{q:"17. Gen Z dapat mempengaruhi kebijakan publik melalui?", a:["Forum online dan petisi digital","Bermain game","Menonton film","Mendaki gunung"], correct:0},
+{q:"18. Apa yang penting dalam e-demokrasi?", a:["Partisipasi aktif, literasi digital, dan etika online","Hanya mengikuti tren","Bersantai saja","Tidak peduli"], correct:0},
+{q:"19. Apa keuntungan ikut kuis atau forum edukasi online?", a:["Meningkatkan pengetahuan tentang hak digital dan e-demokrasi","Hanya mengisi waktu luang","Mendapatkan hadiah saja","Untuk bersaing tanpa tujuan edukatif"], correct:0},
+{q:"20. Apa dampak negatif jika informasi tidak diperiksa sebelum dibagikan?", a:["Menyebarkan hoaks dan kebingungan publik","Mendapat pujian","Meningkatkan popularitas","Tidak ada dampak sama sekali"], correct:0}
+];
+
+const quizContainer = document.getElementById("quiz");
+
+// Generate quiz HTML
+quizData.forEach((q, index) => {
+    let questionHTML = `<div class="question-box">
+        <div class="question">${q.q}</div>
+        <div class="options">`;
+    q.a.forEach((option, i) => {
+        questionHTML += `<button onclick="selectOption(${index}, ${i}, this)">${option}</button>`;
+    });
+    questionHTML += `</div></div>`;
+    quizContainer.innerHTML += questionHTML;
+});
+
+let userAnswers = Array(quizData.length).fill(null);
+
+// Pilih jawaban
+function selectOption(qIndex, aIndex, btn) {
+    userAnswers[qIndex] = aIndex;
+    const buttons = btn.parentElement.querySelectorAll("button");
+    buttons.forEach(b => b.style.background = "white");
+    buttons.forEach(b => b.style.color = "#000");
+    btn.style.background = "#007bff";
+    btn.style.color = "#fff";
+}
+
+// Submit quiz
+function submitQuiz() {
+    let score = 0;
+    quizData.forEach((q, i) => {
+        if(userAnswers[i] === q.correct) score++;
+    });
+    const resultDiv = document.getElementById("result");
+    resultDiv.style.display = "block";
+    resultDiv.innerHTML = `<h3>Hasil Kuis</h3>
+        <p>Jawaban benar: ${score} dari ${quizData.length}</p>
+        <p>Skor: ${(score/quizData.length*100).toFixed(1)}%</p>
+        <p>${score/quizData.length >= 0.8 ? "Selamat! Kamu paham e-demokrasi dengan baik." : "Perlu belajar lebih banyak tentang e-demokrasi."}</p>`;
+    window.scrollTo({top: resultDiv.offsetTop, behavior: 'smooth'});
+}
+</script>
+
+</body>
+</html>
