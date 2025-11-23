@@ -1,0 +1,101 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Poppins, Arial;
+    background: #f2f4f7;
+    color: #333;
+}
+
+/* HERO SECTION */
+.hero {
+    text-align: center;
+    padding: 80px 20px;
+    background: linear-gradient(135deg, #005bea, #00c6fb);
+    color: white;
+}
+.hero h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+.hero p {
+    font-size: 18px;
+    opacity: 0.9;
+}
+.btn-utama {
+    margin-top: 20px;
+    display: inline-block;
+    padding: 12px 22px;
+    background: #ffffff;
+    color: #0062cc;
+    border-radius: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: 0.3s;
+}
+.btn-utama:hover {
+    background: #e3e3e3;
+}
+
+/* NAVBAR */
+.navbar {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    background: #ffffff;
+    padding: 15px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+.navbar a {
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-weight: 600;
+    color: #333;
+    transition: 0.3s;
+}
+.navbar a:hover,
+.navbar .active {
+    background: #005bea;
+    color: white;
+}
+
+/* CONTAINER */
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: auto;
+    padding: 40px 0;
+}
+.judul-section {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* GRID CARD */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+}
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 12px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+}
+.card h3 {
+    margin-bottom: 10px;
+}
+
+/* FOOTER */
+footer {
+    background: #003f7d;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin-top: 40px;
+}
